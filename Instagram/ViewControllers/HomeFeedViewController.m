@@ -6,6 +6,9 @@
 //
 
 #import "HomeFeedViewController.h"
+#import "SceneDelegate.h"
+#import "LoginViewController.h"
+#import <Parse/Parse.h>
 
 @interface HomeFeedViewController ()
 
@@ -16,6 +19,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+- (IBAction)logoutTapped:(id)sender {
+    SceneDelegate *sceneDelegate = (SceneDelegate *)[UIApplication sharedApplication].delegate;
+
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    //check if it should be scene delate or add window to app?
+//    sceneDelegate.window.rootViewController = loginViewController;
+    [[UIApplication sharedApplication].keyWindow setRootViewController:loginViewController];
+    
+    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+        // PFUser.current() will now be nil
+    }];
 }
 
 /*

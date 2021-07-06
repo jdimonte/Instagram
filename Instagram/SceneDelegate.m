@@ -23,8 +23,8 @@
     if(user != nil){
         NSLog(@"Welcome Back %@", user.username);
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *chatViewController = [storyboard instantiateViewControllerWithIdentifier:@"HomeFeedNavigationController"];
-        self.window.rootViewController = chatViewController;
+        UIViewController *homeFeedViewController = [storyboard instantiateViewControllerWithIdentifier:@"HomeFeedNavigationController"];
+        self.window.rootViewController = homeFeedViewController;
     }
 }
 
