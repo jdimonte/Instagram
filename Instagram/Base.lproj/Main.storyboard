@@ -110,12 +110,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemRedColor"/>
                                 <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="9Qc-w8-dys" appends="YES" id="Wdv-GR-slB"/>
-                                    <outletCollection property="gestureRecognizers" destination="9Qc-w8-dys" appends="YES" id="DT2-cM-rC6"/>
-                                    <outletCollection property="gestureRecognizers" destination="9Qc-w8-dys" appends="YES" id="cx1-yc-Fyq"/>
-                                    <outletCollection property="gestureRecognizers" destination="9Qc-w8-dys" appends="YES" id="KYQ-1a-NSj"/>
-                                </connections>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Write a caption..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hjj-tg-cPw">
                                 <rect key="frame" x="160" y="77" width="240" height="128"/>
@@ -137,7 +131,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <gestureRecognizers/>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="9Qc-w8-dys" appends="YES" id="Bw4-rC-fCY"/>
+                            <outletCollection property="gestureRecognizers" destination="yCZ-Tm-PZH" appends="YES" id="gn4-DO-KTP"/>
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="yw4-9d-btp">
@@ -158,9 +152,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sf8-CE-3Mw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="9Qc-w8-dys">
+                <tapGestureRecognizer id="yCZ-Tm-PZH">
                     <connections>
-                        <action selector="takeImage:" destination="5Sj-uy-2ZT" id="p3d-Dd-VP9"/>
+                        <action selector="takeImage:" destination="5Sj-uy-2ZT" id="SJa-0C-1Tz"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

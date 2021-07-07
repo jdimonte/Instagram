@@ -58,9 +58,9 @@
 }
 - (IBAction)shareTapped:(id)sender {
     if(self.caption.text && self.image){
-    
-        //fix make post
-    [self postUserImage: [self.image image] withCaption: self.caption.text withCompletion: nil];
+        
+        //Post *m = [[Post alloc] init];
+        [Post postUserImage:[self.image image] withCaption:self.caption.text withCompletion:nil];
     
         [self dismissViewControllerAnimated:true completion:nil];
     }
