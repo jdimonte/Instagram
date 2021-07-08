@@ -11,11 +11,12 @@
 #import "PostCell.h"
 #import "DetailsViewController.h"
 #import "Post.h"
+#import "User.h"
 #import <Parse/Parse.h>
 
 @interface HomeFeedViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSArray *postsArray;
+@property (strong, nonatomic) NSMutableArray *postsArray;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
@@ -31,14 +32,12 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    // Do any additional setup after loading the view.
+
     [self setPostsArray];
 }
 - (IBAction)logoutTapped:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    //check if it should be scene delate or add window to app?
-//    sceneDelegate.window.rootViewController = loginViewController;
     [[UIApplication sharedApplication].keyWindow setRootViewController:loginViewController];
     
     [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
@@ -46,10 +45,32 @@
     }];
 }
 
-- (void) setPostsArray {
+- (void) setPostsArray: (int) numOfElements{
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
     
     [query includeKey:@"user"];
+    [query includeKey:@"author"];
+    [query orderByDescending:@"createdAt"];
+    
+    query.limit = numOfElements;
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
+        if (posts != nil) {
+            self.postsArray = posts;
+            NSLog(@"Hello");
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+        [self.refreshControl endRefreshing];
+    }];
+}
+
+- (void) setPostsArray{
+    PFQuery *query = [PFQuery queryWithClassName:@"Post"];
+    
+    //[query includeKey:@"user"];
+    [query includeKey:@"author"];
     [query orderByDescending:@"createdAt"];
     
     query.limit = 20;
@@ -57,12 +78,13 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
             self.postsArray = posts;
-
+            NSLog(@"Hello");
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
         [self.refreshControl endRefreshing];
+        return;
     }];
 }
 
@@ -84,17 +106,14 @@
     UIImage *photo = [UIImage imageWithData:photoData];
     [cell.image setImage: photo];
     
+//    User *user = postInfo[@"author"];
+//    if(user != nil){
+//        cell.username.text = user.username;
+//    }
+    NSLog(@"Hi");
+    
     cell.profilePicture.layer.cornerRadius =  cell.profilePicture.frame.size.width / 2;
     cell.profilePicture.clipsToBounds = true;
-
-    //NSLog(@"%@", postInfo[@"author"][@"username"]);
-//    NSLog(@"%@", user);
-//    if(user != nil){
-//        NSLog(@"%@", user.username);
-//    }
-
-    //NSDate *createdAt = post.createdAt;
-    //NSDate *updatedAt = post.updatedAt;
 
     return cell;
 }
@@ -103,12 +122,13 @@
     return self.postsArray.count;
 }
 
-//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if(indexPath.row + 1 == [self.postsArray count]){
-//        [self setPostsArray:[self.postsArray count] + 20];
-//    }
-//}
-
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row + 1 == [self.postsArray count]){
+        int count = [self.postsArray count];
+        count += 20;
+        [self setPostsArray:count];
+    }
+}
 
 #pragma mark - Navigation
 
