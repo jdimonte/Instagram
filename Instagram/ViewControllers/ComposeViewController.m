@@ -56,6 +56,8 @@
 - (IBAction)cancelTapped:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
 }
+
+
 - (IBAction)shareTapped:(id)sender {
     if(self.caption.text && self.image){
         [Post postUserImage:[self.image image] withCaption:self.caption.text withCompletion:nil];

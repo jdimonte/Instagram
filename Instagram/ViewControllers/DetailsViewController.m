@@ -39,9 +39,7 @@
     self.profilePicture.layer.cornerRadius =  self.profilePicture.frame.size.width / 2;
     self.profilePicture.clipsToBounds = true;
     
-    //fix
-    NSDate *date = self.post[@"createdAt"];
-    NSLog(@"%@", date);
+    NSDate *date = self.post.createdAt;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy-MM-dd 'at' HH:mm";
     NSString *dateString = [dateFormatter stringFromDate:date];
