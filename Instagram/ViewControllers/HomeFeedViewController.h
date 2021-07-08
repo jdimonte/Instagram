@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HomeFeedViewController : UIViewController
 
-- (void) setPostsArray: (int)numOfElements;
+@property (strong, nonatomic) NSMutableArray *postsArray;
 
 @end
 

@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) IBOutlet UIButton *commentButton;
 @property (strong, nonatomic) IBOutlet UILabel *likes;
 @property (strong, nonatomic) IBOutlet UILabel *comments;
+@property (strong, nonatomic) IBOutlet UILabel *date;
 
 @end
 

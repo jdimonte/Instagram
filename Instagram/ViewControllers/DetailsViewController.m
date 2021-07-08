@@ -6,6 +6,7 @@
 //
 
 #import "DetailsViewController.h"
+#import "User.h"
 
 @interface DetailsViewController ()
 @property (strong, nonatomic) IBOutlet UIImageView *profilePicture;
@@ -38,6 +39,11 @@
     
     self.profilePicture.layer.cornerRadius =  self.profilePicture.frame.size.width / 2;
     self.profilePicture.clipsToBounds = true;
+    
+    User *user = self.post[@"author"];
+    if(user != nil){
+        self.username.text = user.username;
+    }
     
     NSDate *date = self.post.createdAt;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

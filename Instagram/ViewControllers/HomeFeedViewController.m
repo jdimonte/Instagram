@@ -16,8 +16,8 @@
 
 @interface HomeFeedViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray *postsArray;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (weak, nonatomic) NSString *currentLimit;
 
 @end
 
@@ -27,13 +27,15 @@
     [super viewDidLoad];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(setPostsArray) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(loadQueryPosts) forControlEvents:UIControlEventValueChanged]; //fix
     [self.tableView insertSubview:self.refreshControl atIndex:0];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-
-    [self setPostsArray];
+    
+    self.currentLimit = [NSString stringWithFormat: @"%d", 20];
+    
+    [self loadQueryPosts:20];
 }
 - (IBAction)logoutTapped:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -44,47 +46,23 @@
         // PFUser.current() will now be nil
     }];
 }
-
-- (void) setPostsArray: (int) numOfElements{
+//
+- (void) loadQueryPosts: (int)numUnique{
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
-    
-    [query includeKey:@"user"];
+
     [query includeKey:@"author"];
     [query orderByDescending:@"createdAt"];
-    
-    query.limit = numOfElements;
+
+    query.limit = numUnique;
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
             self.postsArray = posts;
-            NSLog(@"Hello");
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
         [self.refreshControl endRefreshing];
-    }];
-}
-
-- (void) setPostsArray{
-    PFQuery *query = [PFQuery queryWithClassName:@"Post"];
-    
-    //[query includeKey:@"user"];
-    [query includeKey:@"author"];
-    [query orderByDescending:@"createdAt"];
-    
-    query.limit = 20;
-    
-    [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
-        if (posts != nil) {
-            self.postsArray = posts;
-            NSLog(@"Hello");
-            [self.tableView reloadData];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-        [self.refreshControl endRefreshing];
-        return;
     }];
 }
 
@@ -106,11 +84,16 @@
     UIImage *photo = [UIImage imageWithData:photoData];
     [cell.image setImage: photo];
     
-//    User *user = postInfo[@"author"];
-//    if(user != nil){
-//        cell.username.text = user.username;
-//    }
-    NSLog(@"Hi");
+    User *user = postInfo[@"author"];
+    if(user != nil){
+        cell.username.text = user.username;
+    }
+    
+    NSDate *date = postInfo.createdAt;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd 'at' HH:mm";
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    cell.date.text = dateString;
     
     cell.profilePicture.layer.cornerRadius =  cell.profilePicture.frame.size.width / 2;
     cell.profilePicture.clipsToBounds = true;
@@ -123,10 +106,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row + 1 == [self.postsArray count]){
-        int count = [self.postsArray count];
+    if(indexPath.row + 1 == [self.postsArray count] && self.postsArray.count >= [self.currentLimit intValue]){
+        NSUInteger *count = (long)self.postsArray.count;
         count += 20;
-        [self setPostsArray:count];
+        self.currentLimit = [NSString stringWithFormat:@"%d", count];
+        [self loadQueryPosts:count];
+        NSLog(@"AHHHH");
     }
 }
 
