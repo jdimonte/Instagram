@@ -6,6 +6,7 @@
 //
 
 #import "EditProfileViewController.h"
+#import "User.h"
 #import <Parse/Parse.h>
 
 @interface EditProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -17,6 +18,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    User *user = [PFUser currentUser];
+    self.name.text = user[@"name"];
+    self.bio.text = user[@"bio"];
+    PFFileObject *profileImage = user[@"profilePicture"];
+    NSURL *profileUrl = [NSURL URLWithString:profileImage.url];
+    NSData *profileData = [NSData dataWithContentsOfURL:profileUrl];
+    UIImage *profilePhoto = [UIImage imageWithData:profileData];
+    self.profilePicture.image = profilePhoto;
 }
 - (IBAction)doneTapped:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
@@ -36,15 +45,6 @@
         NSLog(@"Camera 🚫 available so we will use photo library instead");
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     }
-    
-//    PFUser *currentUser = [PFUser currentUser];
-//    NSLog(@"%@", currentUser);
-//    if (self.profilePicture) {
-//        NSData *imageData = UIImagePNGRepresentation(self.profilePicture);
-//        if (imageData) {
-//            currentUser.profilePicture =  [PFFileObject fileObjectWithName:@"image.png" data:imageData];
-//        }
-//    }
 
     [self presentViewController:imagePickerVC animated:YES completion:nil];
 }
@@ -59,6 +59,9 @@
     
     // Do something with the images (based on your use case)
     [self.profilePicture setImage: newImage];
+    User *currentUser = [PFUser currentUser];
+    NSData *imageData = UIImagePNGRepresentation(currentUser[@"profilePicture"]);
+    currentUser.profilePicture =  [PFFileObject fileObjectWithName:@"image.png" data:imageData];
     
     // Dismiss UIImagePickerController to go back to your original view controller
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -79,8 +82,26 @@
 }
 
 - (IBAction)changeNameTapped:(id)sender {
+    User *user = [PFUser currentUser];
+    user[@"name"] = self.name.text;
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
+        if (error != nil) {
+            NSLog(@"fail");
+        } else {
+            NSLog(@"success");
+        }
+    }];
 }
 - (IBAction)changeBioTapped:(id)sender {
+    User *user = [PFUser currentUser];
+    user[@"bio"] = self.bio.text;
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
+        if (error != nil) {
+            NSLog(@"fail");
+        } else {
+            NSLog(@"success");
+        }
+    }];
 }
 
 /*

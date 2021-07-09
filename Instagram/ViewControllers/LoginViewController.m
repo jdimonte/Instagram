@@ -33,19 +33,18 @@
     //newUser.email = self.emailField.text;
     newUser.password = self.password.text;
     
+    //already user with this information
     if([newUser.username isEqual: @""] || [newUser.password isEqual: @""]){
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"noText" message:@"Input Text" preferredStyle:(UIAlertControllerStyleAlert)];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
                                                             style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * _Nonnull action) {
-                                                                 // handle cancel response here. Doing nothing will dismiss the view.
                                                           }];
         [alert addAction:cancelAction];
 
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
                                                            style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * _Nonnull action) {
-                                                                 // handle response here.
                                                          }];
         [alert addAction:okAction];
         
@@ -53,6 +52,7 @@
             // optional code for what happens after the alert controller has finished presenting
         }];
     }
+    //create new user
     else{
         [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
             if (error != nil) {
@@ -61,14 +61,12 @@
                 UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
                                                                     style:UIAlertActionStyleCancel
                                                                   handler:^(UIAlertAction * _Nonnull action) {
-                                                                         // handle cancel response here. Doing nothing will dismiss the view.
                                                                   }];
                 [alert addAction:cancelAction];
 
                 UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
                                                                    style:UIAlertActionStyleDefault
                                                                  handler:^(UIAlertAction * _Nonnull action) {
-                                                                         // handle response here.
                                                                  }];
                 [alert addAction:okAction];
                 

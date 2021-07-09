@@ -95,6 +95,12 @@
     NSString *dateString = [dateFormatter stringFromDate:date];
     cell.date.text = dateString;
     
+    PFFileObject *profileImage = user[@"profilePicture"];
+    NSURL *profileUrl = [NSURL URLWithString:profileImage.url];
+    NSData *profileData = [NSData dataWithContentsOfURL:profileUrl];
+    UIImage *profilePhoto = [UIImage imageWithData:profileData];
+    cell.profilePicture.image = profilePhoto;
+    
     cell.profilePicture.layer.cornerRadius =  cell.profilePicture.frame.size.width / 2;
     cell.profilePicture.clipsToBounds = true;
 
