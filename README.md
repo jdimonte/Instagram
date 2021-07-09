@@ -2,7 +2,7 @@
 
 Instagram is a photo sharing app using Parse as its backend.
 
-Time spent: **10** hours spent in total
+Time spent: **15** hours spent in total
 
 ## User Stories
 
@@ -40,13 +40,18 @@ The following **additional** features are implemented:
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
 1. One idea might be adding a song to the user's profile with the Spotify API.
-2. I wanted to practice more with added comments and Parse.
+2. I wanted to practice more with using Parse like adding comments, replies to comments, and likes.
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src="https://github.com/jdimonte/Instagram/blob/main/signup:login.gif" width="250">
+<img src="https://github.com/jdimonte/Instagram/blob/main/remembersmall.gif" width="250">
+<img src="https://github.com/jdimonte/Instagram/blob/main/detail.gif" width="250">
+<img src="https://github.com/jdimonte/Instagram/blob/main/extrasmaller.gif" width="250">
+
+First GIF shows the Parse authentication for logining in and signing up. Second GIF shows user persistence when the app restarts, creating a post with an image and caption, and refreshing the page. Third GIF shows the call for 20 posts and the details page. Fourth GIF shows optionals, including a profile page where you can change your name and bio and see a collection view of posts.
 
 GIF created with [Kap](https://getkap.co/).
 
