@@ -19,5 +19,12 @@
 
     // Configure the view for the selected state
 }
+- (IBAction)likeTapped:(id)sender {
+    //updates likes count UI
+    self.likes.text = [NSString stringWithFormat:@"%d",[self.likes.text intValue]+1 ];
+}
+- (IBAction)commentTapped:(id)sender {
+    self.comments.text = [NSString stringWithFormat:@"%d",[self.comments.text intValue]+1 ];
+}
 
 @end

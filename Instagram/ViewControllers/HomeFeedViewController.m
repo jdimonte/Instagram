@@ -27,7 +27,7 @@
     [super viewDidLoad];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(loadQueryPosts) forControlEvents:UIControlEventValueChanged]; //fix
+    [self.refreshControl addTarget:self action:@selector(loadQueryPosts:) forControlEvents:UIControlEventValueChanged]; //fix
     [self.tableView insertSubview:self.refreshControl atIndex:0];
     
     self.tableView.delegate = self;

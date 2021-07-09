@@ -10,5 +10,8 @@
 @implementation User
 
 @dynamic username;
+@dynamic profilePicture;
+@dynamic name;
+@dynamic bio;
 
 @end
