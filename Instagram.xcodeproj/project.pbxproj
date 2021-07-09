@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5168D3E82697A860008481D8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5168D3E72697A860008481D8 /* ProfileViewController.m */; };
 		5168D3EB2697ABA2008481D8 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5168D3EA2697ABA2008481D8 /* EditProfileViewController.m */; };
+		5168D3EE2698F1B4008481D8 /* ProfilePostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5168D3ED2698F1B4008481D8 /* ProfilePostCell.m */; };
 		51BFB1C32694DB0300808415 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 51BFB1C22694DB0300808415 /* AppDelegate.m */; };
 		51BFB1C62694DB0300808415 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 51BFB1C52694DB0300808415 /* SceneDelegate.m */; };
 		51BFB1CC2694DB0300808415 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51BFB1CA2694DB0300808415 /* Main.storyboard */; };
@@ -52,6 +53,8 @@
 		5168D3E72697A860008481D8 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		5168D3E92697ABA2008481D8 /* EditProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
 		5168D3EA2697ABA2008481D8 /* EditProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
+		5168D3EC2698F1B4008481D8 /* ProfilePostCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfilePostCell.h; sourceTree = "<group>"; };
+		5168D3ED2698F1B4008481D8 /* ProfilePostCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfilePostCell.m; sourceTree = "<group>"; };
 		51BFB1BE2694DB0300808415 /* Instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51BFB1C12694DB0300808415 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		51BFB1C22694DB0300808415 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -214,6 +217,8 @@
 			children = (
 				51BFB2082696380200808415 /* PostCell.h */,
 				51BFB2092696380200808415 /* PostCell.m */,
+				5168D3EC2698F1B4008481D8 /* ProfilePostCell.h */,
+				5168D3ED2698F1B4008481D8 /* ProfilePostCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -483,6 +488,7 @@
 				51BFB1C32694DB0300808415 /* AppDelegate.m in Sources */,
 				51BFB20D26964E7C00808415 /* User.m in Sources */,
 				51BFB1D42694DB0400808415 /* main.m in Sources */,
+				5168D3EE2698F1B4008481D8 /* ProfilePostCell.m in Sources */,
 				51BFB20A2696380200808415 /* PostCell.m in Sources */,
 				51BFB2042695110800808415 /* ComposeViewController.m in Sources */,
 				51BFB1C62694DB0300808415 /* SceneDelegate.m in Sources */,

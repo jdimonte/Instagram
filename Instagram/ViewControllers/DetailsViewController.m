@@ -45,6 +45,12 @@
         self.username.text = user.username;
     }
     
+    PFFileObject *profileImage = user[@"profilePicture"];
+    NSURL *profileUrl = [NSURL URLWithString:profileImage.url];
+    NSData *profileData = [NSData dataWithContentsOfURL:profileUrl];
+    UIImage *profilePhoto = [UIImage imageWithData:profileData];
+    self.profilePicture.image = profilePhoto;
+    
     NSDate *date = self.post.createdAt;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy-MM-dd 'at' HH:mm";
