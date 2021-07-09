@@ -21,16 +21,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     NSString *caption = self.post[@"caption"];
     self.caption.text = caption;
-    
-//    NSNumber *likeCount = self.post[@"likeCount"];
-//    NSNumber *commentCount = self.post[@"commentCount"];
-//    self.likes.text = [likeCount stringValue];
-//    self.comments.text = [commentCount stringValue];
-    
+       
     PFFileObject *postImage = self.post[@"image"];
     NSURL *url = [NSURL URLWithString:postImage.url];
     NSData *photoData = [NSData dataWithContentsOfURL:url];

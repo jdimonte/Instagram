@@ -43,7 +43,6 @@
     [[UIApplication sharedApplication].keyWindow setRootViewController:loginViewController];
     
     [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
-        // PFUser.current() will now be nil
     }];
 }
 //
@@ -117,16 +116,12 @@
         count += 20;
         self.currentLimit = [NSString stringWithFormat:@"%d", count];
         [self loadQueryPosts:count];
-        NSLog(@"AHHHH");
     }
 }
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
     if ([segue.identifier isEqual:@"details"]){
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];

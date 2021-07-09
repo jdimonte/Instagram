@@ -17,7 +17,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     User *user = [PFUser currentUser];
     self.name.text = user[@"name"];
     self.bio.text = user[@"bio"];
@@ -37,7 +36,6 @@
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;
 
-    // The Xcode simulator does not support taking pictures, so let's first check that the camera is indeed supported on the device before trying to present it.
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
     }
@@ -50,20 +48,24 @@
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    
-    // Get the image captured by the UIImagePickerController
     UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
     UIImage *editedImage = info[UIImagePickerControllerEditedImage];
     
     UIImage *newImage = [self resizeImage:editedImage withSize:CGSizeMake(500, 500)];
     
-    // Do something with the images (based on your use case)
+    //FIX: Errors if user changes photo
     [self.profilePicture setImage: newImage];
     User *currentUser = [PFUser currentUser];
     NSData *imageData = UIImagePNGRepresentation(currentUser[@"profilePicture"]);
     currentUser.profilePicture =  [PFFileObject fileObjectWithName:@"image.png" data:imageData];
+    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
+        if (error != nil) {
+            NSLog(@"fail");
+        } else {
+            NSLog(@"success");
+        }
+    }];
     
-    // Dismiss UIImagePickerController to go back to your original view controller
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

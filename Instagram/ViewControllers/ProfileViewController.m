@@ -25,7 +25,7 @@
     
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    // Do any additional setup after loading the view.
+
     [self displayUserProfile];
     
     [self loadQueryPosts:20];
@@ -45,14 +45,24 @@
     NSData *profileData = [NSData dataWithContentsOfURL:profileUrl];
     UIImage *profilePhoto = [UIImage imageWithData:profileData];
     self.profilePicture.image = profilePhoto;
+    
+    self.profilePicture.layer.cornerRadius =  self.profilePicture.frame.size.width / 2;
+    self.profilePicture.clipsToBounds = true;
+
 }
 
 - (void) loadQueryPosts: (int)numUnique{
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
-
+    
+    User *user = [PFUser currentUser];
+    
+    //NOTE: not finding any posts
+    //[query whereKey:@"author" equalTo:user.objectId];
+    
     [query includeKey:@"author"];
     [query orderByDescending:@"createdAt"];
-
+    NSLog(@"%@", user.objectId);
+    
     query.limit = numUnique;
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
@@ -82,10 +92,7 @@
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
     if ([segue.identifier isEqual:@"detailsFromProfile"]){
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.collectionView indexPathForCell:tappedCell];
